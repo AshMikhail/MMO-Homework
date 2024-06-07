@@ -1,0 +1,35 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    <h2 style="text-align: center;">Отклики для выбранной статьи:</h2>
+    <p></p>
+    <form action="" method="get" style="text-align: center;">
+        {{ filterset.form.as_p }}
+        <input  type="submit" value="Search">
+    </form>
+    <hr>
+ <table style="margin-left:">
+            <tbody>
+            {% if filterset.qs %}
+                {% for comment in filterset.qs  %}
+                    <tr>
+                        <td style="text-align: left;">Автор: {{ comment.author.username }}
+                            |Статья: {{ comment.article.title }}
+                            |{% if comment and comment.status == False %}
+                            <a href="{% url 'comment_accept' pk=comment.id %}"> Принять отклик </a>
+                            |<a href="{% url 'comment_delete' comment.id %}"> Удалить отклик </a>
+                            {% elif comment.status == True %}
+                            Отклик принят!
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><h4>{{ comment.text }}</h4></td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            {% else %}
+                <h4>К сожалению для этой статьи пока нет откликов!</h4>
+            {% endif %}
+        </table>
+{% endblock content %}

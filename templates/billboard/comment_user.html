@@ -1,0 +1,23 @@
+{% extends 'default.html' %}
+
+{% block title %}
+comment
+{% endblock title %}
+
+{% block content %}
+    <table>
+        <tbody>
+            {% if filterset.qs %}
+                {% for comment in filterset.qs %}
+                    <tr><td style="text-align: left;"><a href="{% url 'comment_Update' pk=comment.id %}"> Изменить отклик </a></td></tr>
+                    <tr><td style="text-align: left;"><a href="{% url 'Comment_Detail' pk=comment.id %}">{{comment.text }}</a></td></tr>
+                    <tr><td style="text-align: left;"></td></tr>
+                    <tr><td><hr></td></tr>
+                {% endfor %}
+            {% else %}
+                <td style="text-align: center;">У вас пока нет откликов </td>
+            {% endif %}
+        </tbody>
+    </table>
+
+{% endblock content %}

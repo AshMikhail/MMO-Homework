@@ -1,0 +1,25 @@
+{% extends 'default.html' %}
+
+{% block title %}
+comment
+{% endblock title %}
+
+{% block content %}
+
+        <table style="margin-left: auto; margin-right: auto;">
+            <tr>
+                <td style="text-align: center;"><strong><h4>Автор</h4></strong></td>
+                <td style="text-align: center;"><strong> </strong></td>
+                <td style="text-align: center;"><strong> <h4>Статья</h4> </strong></td>
+                <td style="text-align: center;"><strong> </strong></td>
+                <td style="text-align: center;"><strong><h4>Текст</h4></strong></td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">{{ comment.author }}</td>
+                <td style="text-align: center;"><strong> </strong></td>
+                <td style="text-align: center;">{{ comment.article }}</td>
+                <td style="text-align: center;"><strong> </strong></td>
+                <td style="text-align: center;">{{ comment.text }}</td>
+            </tr>
+        </table>
+{% endblock content %}

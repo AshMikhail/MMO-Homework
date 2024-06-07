@@ -1,0 +1,14 @@
+{% extends 'default.html' %}
+{% load i18n %}
+{% load allauth %}
+{% block head_title %}Активация Аккаунта{% endblock head_title %}
+{% block content %}
+    <h1 style="...">Введите код активации</h1>
+    <form action="{% url 'confirm' %}" method="post" style="...">
+        {% csrf_token %}
+        <label>
+            <input class="text" type="text" name="pcc" placeholder="Inter your activation code">
+        </label>
+        <input type="submit" value="Confirm">
+    </form>
+{% endblock%}

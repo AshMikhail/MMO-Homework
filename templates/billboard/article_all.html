@@ -1,0 +1,53 @@
+{% extends 'default.html' %}
+
+{% block title %}
+all_articles
+{% endblock %}
+
+{% block content %}
+    <h1>Всего статей: {{ all_articles|length }}</h1>
+    <form action="" method="get">
+       {{ filterset.form.as_p }}
+       <input type="submit" value="Найти" />
+    </form>
+
+        <table style="margin-left: auto; margin-right: auto;">
+            <tbody>
+            {% for article in all_articles %}
+            <tr>
+                <td style="text-align: left;"><a href="{% url 'article_detail' article.pk %}"> {{ article.title }}</a></td>
+            </tr>
+            <tr>
+            {% if request.user.is_authenticated %}
+                <td style="text-align: left;"><a href="{% url 'comment_create' pk=article.pk %}"> Оставить отклик </a></td>
+            {% endif %}
+            </tr>
+            <tr>
+                <td style="text-align: left;">{{ article.dateCreation|date:'d M Y' }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">Категория: {{ article.get_category_display }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">{{ article.text|safe|truncatewords:50}}</td>
+            </tr>
+
+            </tbody>
+            {% endfor %}
+        </table>
+        {% if page_obj.has_previous %}
+        <a href="?page=1">1</a>
+        {% if page_obj.previous_page_number != 1 %}
+        ...
+        <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+        {% endif %}
+        {% endif %}
+        {{ page_obj.number }}
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+        {% if paginator.num_pages != page_obj.next_page_number %}
+        ...
+        <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+        {% endif %}
+        {% endif %}
+{% endblock %}

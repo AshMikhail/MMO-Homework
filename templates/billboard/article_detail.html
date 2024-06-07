@@ -1,0 +1,40 @@
+{% extends 'default.html' %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+
+        <table style="margin-left: auto; margin-right: auto;">
+            <tr>
+                <td style="text-align: center;"><strong><h4>Название</h4></strong></td>
+                <td style="text-align: center;"><strong> </strong></td>
+                <td style="text-align: center;"><strong> </strong></td>
+                <td style="text-align: center;"><strong><h4>Дата публикации</h4></strong></td>
+                <td style="text-align: center;"><strong> </strong></td>
+                <td style="text-align: center;"><strong><h4> Автор </h4></strong></td>
+
+            </tr>
+            <tr>
+                <td style="text-align: center;">{{ article.title}}</td>
+                <td style="text-align: center;"><strong> </strong></td>
+                <td style="text-align: center;"><strong> </strong></td>
+                <td style="text-align: center;">{{ article.dateCreation|date:'d M Y' }}</td>
+                <td style="text-align: center;"><strong> </strong></td>
+                <td style="text-align: center;">{{ article.author }}</td>
+            </tr>
+        </table>
+{% if article.upload %}
+<td><p><img class="img-article-left" src="{{article.upload.url}}"></p></td>
+{% endif %}
+        <table>
+            <tr>
+                <td style="text-align: center;"><strong><h4>Текст</h4></strong></td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">{{ article.text|safe }}</td>
+            </tr>
+
+        </table>
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends 'default.html' %}
+
+{% block title %}
+article
+{% endblock title %}
+
+{% block content %}
+    <h5 style="text-align: center;">
+    <a href="{% url 'article_create' %}">Написать новую статью</a> | <a href="{% url 'all_comments' %}">Отклики к вашим статьям</a>| <a href="{% url 'all_user_comments' %}">Ваши отклики</a>
+
+    </h5>
+    <table>
+        <tbody>
+            {% if filterset.qs %}
+                {% for article in filterset.qs %}
+            <tr><td style="text-align: left;"><a href="{% url 'article_update' pk=article.id %}"> Изменить статью </a>|<a href="{% url 'article_delete' pk=article.id %}"> Удалить статью </a> </td></tr>
+                    <tr><td style="text-align: left;"><a href="{% url 'article_detail' pk=article.id %}">"{{ article.title }}":</a></td></tr>
+                    <tr><td style="text-align: left;">{{article.text|safe|truncatewords:50 }}</td></tr>
+                    <tr><td><hr></td></tr>
+                {% endfor %}
+            {% else %}
+                <td style="text-align: center;">У вас пока нет статей</td>
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock content %}
